@@ -11,9 +11,12 @@ const update = (snapShot: OrderProps[], update: OrderProps[]): OrderProps[] => {
     update.forEach(([ price, size]) => {
       mapA.set( price, size); 
     });
+
     return Array.from( mapA.entries()) as OrderProps[];
 };
   
+
+
 const useWebSocket = ( url: string) => {
     const [ asks, setAsks] = useState< OrderProps[]>( []);
     const [ bids, setBids] = useState< OrderProps[]>( []);
@@ -77,18 +80,21 @@ const OrderBook=({
     const [aciveIndex,setActiveIndex]=useState<number>(1);
     const refBids=useRef < Map< number, HTMLDivElement>| null>(null);
     const refAsks=useRef < Map< number, HTMLDivElement>| null>(null);
+
     const getMapBids=()=>{
         if(!refBids.current){
             refBids.current=new Map();
         }
         return refBids.current;
     }
+
     const getMapAsks=()=>{
         if(!refAsks.current){
             refAsks.current=new Map();
         }
         return refAsks.current;
     }
+
     const scrollToTop=(index: number)=> {
         const map= getMapBids();
         const node = map.get(index);
@@ -100,6 +106,7 @@ const OrderBook=({
             });
         }
     }
+
     const scrollToBottom=(index: number)=> {
         const map= getMapAsks();
         const node = map.get(index);
@@ -147,6 +154,8 @@ const OrderBook=({
             </button>
         )
     });
+
+
     const bids=bidData.sort(( a, b)=> parseFloat( a[0]) - parseFloat( b[0])).map(([ price, size], index)=>{
         return(
             <div 
@@ -170,6 +179,8 @@ const OrderBook=({
         )
        
     })
+
+
     const asks=asksData.sort(( a, b)=> parseFloat( a[0]) - parseFloat( b[0])).map(([ price, size], index)=>{
         return(
             <div 
@@ -191,8 +202,9 @@ const OrderBook=({
                 <div className="mr-2 flex-[0.6] text-right">- </div>
             </div>
         )
-       
     })
+
+    
     return(
         <div className= "flex w-full flex-col overflow-y-hidden flex-1">
             {/* button section */}
@@ -215,10 +227,7 @@ const OrderBook=({
                    { aciveIndex ===1 && bids} 
                    { aciveIndex ===2 && asks} 
                 </div>
-            
-
             </div>
-
         </div>
     );
 
@@ -248,9 +257,6 @@ const TradeBoard=()=>{
                 { buttons}  
             </div>
             { ( activeIndex===0) && <OrderBook bidData={ bids} asksData={ asks}/>}
-           
-           
-            
         </div>
     );
 }
