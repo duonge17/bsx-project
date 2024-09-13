@@ -77,6 +77,18 @@ const OrderBook=({
     const [aciveIndex,setActiveIndex]=useState<number>(1);
     const refBids=useRef < Map< number, HTMLDivElement>| null>(null);
     const refAsks=useRef < Map< number, HTMLDivElement>| null>(null);
+    const getMapBids=()=>{
+        if(!refBids.current){
+            refBids.current=new Map();
+        }
+        return refBids.current;
+    }
+    const getMapAsks=()=>{
+        if(!refAsks.current){
+            refAsks.current=new Map();
+        }
+        return refAsks.current;
+    }
     const scrollToTop=(index: number)=> {
         const map= getMapBids();
         const node = map.get(index);
@@ -99,18 +111,7 @@ const OrderBook=({
             });
         }
     }
-    const getMapBids=()=>{
-        if(!refBids.current){
-            refBids.current=new Map();
-        }
-        return refBids.current;
-    }
-    const getMapAsks=()=>{
-        if(!refAsks.current){
-            refAsks.current=new Map();
-        }
-        return refAsks.current;
-    }
+   
     const buttons=[
         {
             title: 'Default',
