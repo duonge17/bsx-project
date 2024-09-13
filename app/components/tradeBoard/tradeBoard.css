@@ -37,3 +37,15 @@
    font-size: 11px;
     
 }
+@keyframes backgroundFade {
+    0% {
+      background-color: rgba(0, 255, 0, 0.2); /* Light green */
+    }
+    100% {
+      background-color: transparent; /* Fade to transparent */
+    }
+  }
+  
+  .fade-background {
+    animation: backgroundFade 2s ease-out;
+  }

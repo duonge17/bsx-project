@@ -1,16 +1,16 @@
-export interface OrderProps{
-    price:number
-    size:number
-    owne:boolean
-}
-export interface TradeProps{
-    price:number
-    size:number
-    time:string
-}
+
+
 export interface OrderBookProps{
-    data:{price:number, size:number, own:boolean}[]
+    asksData:OrderProps[]
+    bidData:OrderProps[]
 }
 export interface TradeHistoryProps{
-    data:{price:number, size:number, time:string}[]
+    data:TradeProps[]
+}
+
+export type OrderProps=[string,string]
+export type TradeProps={
+    price:string
+    size:string,
+    time:string
 }
