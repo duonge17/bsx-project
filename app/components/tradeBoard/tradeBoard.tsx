@@ -1,5 +1,5 @@
 'use client';
-import { OrderBookProps, OrderProps, TradeHistoryProps } from "./interface";
+import { OrderBookProps, OrderProps } from "./interface";
 import './tradeBoard.css';
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
