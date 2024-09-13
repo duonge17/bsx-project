@@ -6,19 +6,19 @@ import { twMerge } from "tailwind-merge";
 
 
 const update = (snapShot: OrderProps[], update: OrderProps[]): OrderProps[] => {
-    const mapA = new Map(snapShot.map(([price, size]) => [price, size]));
+    const mapA = new Map( snapShot.map(([ price, size]) => [ price, size]));
   
-    update.forEach(([price, size]) => {
-      mapA.set(price, size); 
+    update.forEach(([ price, size]) => {
+      mapA.set( price, size); 
     });
-    return Array.from(mapA.entries()) as OrderProps[];
+    return Array.from( mapA.entries()) as OrderProps[];
 };
   
-const useWebSocket = (url: string) => {
-    const [asks, setAsks] = useState<OrderProps[]>([]);
-    const [bids, setBids] = useState<OrderProps[]>([]);
+const useWebSocket = ( url: string) => {
+    const [ asks, setAsks] = useState< OrderProps[]>( []);
+    const [ bids, setBids] = useState< OrderProps[]>( []);
     useEffect(() => {
-      const socket = new WebSocket(url);
+      const socket = new WebSocket( url);
   
       socket.onopen = () => {
         console.log('WebSocket connection established');
@@ -131,33 +131,33 @@ const OrderBook=({
                 scrollToBottom(getMapAsks().size-1);
             }
         },
-    ].map(( {title,scrollTo, href}, index)=>{
+    ].map(( {title, scrollTo, href}, index)=>{
         return (
             <button 
-                key={title}
-                title={title}
+                key={ title}
+                title={ title}
                 className={ twMerge( "rounded p-0.5 hover:bg-gray-850 hover:opacity-100", (index===aciveIndex) ? "bg-gray-850 opacity-100": "opacity-40")}
                 onClick={()=>{
-                    setActiveIndex(index);
+                    setActiveIndex( index);
                     scrollTo();
                 }}
             >
-                <img src={href} className="w-6" alt={title}/>
+                <img src={ href} className="w-6" alt={ title}/>
             </button>
         )
     });
-    const bids=bidData.sort((a,b)=> parseFloat(a[0]) - parseFloat(b[0])).map(([price,size],index)=>{
+    const bids=bidData.sort(( a, b)=> parseFloat( a[0]) - parseFloat( b[0])).map(([ price, size], index)=>{
         return(
             <div 
-                key={price+'/'+size} 
+                key={ price+'/'+ size} 
                 className="relative text-[11px] flex cursor-pointer select-none items-center border-dashed font-mono fade-background  hover:border-b hover:border-black"
-                ref={(node)=>{
+                ref={( node)=>{
                     const map = getMapBids();
                     if(node){
-                        map.set(index,node);
+                        map.set( index,node);
                     }
                     return ()=>{
-                        map.delete(index);
+                        map.delete( index);
                     }
                 }}
                 >
@@ -169,18 +169,18 @@ const OrderBook=({
         )
        
     })
-    const asks=asksData.sort((a,b)=> parseFloat(a[0]) - parseFloat(b[0])).map(([price,size],index)=>{
+    const asks=asksData.sort(( a, b)=> parseFloat( a[0]) - parseFloat( b[0])).map(([ price, size], index)=>{
         return(
             <div 
                 key={price+'/'+size} 
                 className="relative text-[11px] flex cursor-pointer select-none items-center border-dashed font-mono fade-background  hover:border-b hover:border-black"
-                ref={(node)=>{
+                ref={( node)=>{
                     const map = getMapAsks();
-                    if(node){
-                        map.set(index,node);
+                    if( node){
+                        map.set( index, node);
                     }
                     return ()=>{
-                        map.delete(index);
+                        map.delete( index);
                     }
                 }}
                 >
@@ -211,8 +211,8 @@ const OrderBook=({
                 </div>
 
                 <div className="flex min-h-0 flex-1 flex-col-reverse gap-0.5 scrollbar-hidden overflow-y-auto ipadMini:overflow-y-auto">
-                   {aciveIndex ===1 && bids} 
-                   {aciveIndex ===2 && asks} 
+                   { aciveIndex ===1 && bids} 
+                   { aciveIndex ===2 && asks} 
                 </div>
             
 
@@ -225,13 +225,13 @@ const OrderBook=({
 
 const TradeBoard=()=>{
     const [ activeIndex, setActive]= useState< number>( 0);
-    const [ asks, bids]=useWebSocket("wss://ws.bsx.exchange/ws");
+    const [ asks, bids]=useWebSocket( "wss://ws.bsx.exchange/ws");
  
     const buttons=[ { title:"Orderbook"}, { title:"Trade History"},]
-    .map(({title},index)=>{
+    .map(( { title}, index)=>{
         return(
             <button 
-                key={title}
+                key={ title}
                 className={ twMerge( "flex-1", (index===activeIndex) ? 'active-bttn': "" , "hover:bg-gray-850")} 
                 onClick={ ()=> setActive( index)}
             >
@@ -244,9 +244,9 @@ const TradeBoard=()=>{
     return(
         <div className= "panel flex min-h-0 flex-col w-[272px] h-[300px]">
             <div className= "bttn-group m-2 gap-2">
-                {buttons}  
+                { buttons}  
             </div>
-            { (activeIndex===0) && <OrderBook bidData={bids} asksData={ asks}/>}
+            { ( activeIndex===0) && <OrderBook bidData={ bids} asksData={ asks}/>}
            
            
             
